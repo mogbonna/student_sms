@@ -3,6 +3,8 @@ import sys
 from students.add import add_student
 from students.display import display_students
 from students.search import search_student
+from students.delete import delete_student
+
 
 def cli_mode():
     parser = argparse.ArgumentParser(description="Student Management System")
@@ -10,6 +12,8 @@ def cli_mode():
     parser.add_argument('--add', action='store_true', help="Add a new student")
     parser.add_argument('--display', action='store_true', help="Display all students")
     parser.add_argument('--search', action='store_true', help="Search for a student")
+    parser.add_argument('--delete', action='store_true', help="Delete a student")
+
     parser.add_argument('--name', type=str, help="Name of the student")
     parser.add_argument('--age', type=str, help="Age of the student")
 
@@ -30,6 +34,12 @@ def cli_mode():
         else:
             print("Error: --search requires --name")
 
+    elif args.delete:
+        if args.name:
+            delete_student(args.name)
+        else:
+            print("Error: --delete requires --name")
+
     else:
         parser.print_help()
 
@@ -40,7 +50,9 @@ def menu_mode():
             print("1. Add Student")
             print("2. Display Students")
             print("3. Search Student")
-            print("4. Exit")
+            print("4. Delete Student")
+            print("5. Exit")
+
             choice = input("Enter your choice: ")
 
             if choice == '1':
@@ -53,8 +65,12 @@ def menu_mode():
                 name = input("Enter name to search: ")
                 search_student(name)
             elif choice == '4':
+                name = input("Enter name to delete: ")
+                delete_student(name)
+            elif choice == '5':
                 print("Goodbye!")
                 break
+
             else:
                 print("Invalid choice. Try again.")
         except Exception as e:
