@@ -13,7 +13,6 @@ A lightweight, command-line and menu-based Python application to manage student 
 - ♻️ Update student details (name, age)
 - ❌ Delete students from the database
 - 🧠 Dual interface: CLI + Interactive menu
-- 📦 Pip-installable as a standalone tool
 
 ---
 
@@ -26,14 +25,6 @@ git clone https://github.com/yourusername/student-sms.git
 cd student-sms
 ```
 ````
-
-2. **Install the package locally:**
-
-```bash
-pip install .
-```
-
----
 
 ## Usage
 

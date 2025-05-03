@@ -4,6 +4,8 @@ from students.add import add_student
 from students.display import display_students
 from students.search import search_student
 from students.delete import delete_student
+from students.update import update_student
+
 
 
 def cli_mode():
@@ -13,9 +15,12 @@ def cli_mode():
     parser.add_argument('--display', action='store_true', help="Display all students")
     parser.add_argument('--search', action='store_true', help="Search for a student")
     parser.add_argument('--delete', action='store_true', help="Delete a student")
+    parser.add_argument('--update', action='store_true', help="Update a student")
 
     parser.add_argument('--name', type=str, help="Name of the student")
     parser.add_argument('--age', type=str, help="Age of the student")
+    parser.add_argument('--new-name', type=str, help="New name of the student")
+    parser.add_argument('--new-age', type=str, help="New age of the student")
 
     args = parser.parse_args()
 
@@ -39,6 +44,12 @@ def cli_mode():
             delete_student(args.name)
         else:
             print("Error: --delete requires --name")
+
+    elif args.update:
+        if args.name and (args.new_name or args.new_age):
+            update_student(args.name, args.new_name, args.new_age)
+        else:
+            print("Error: --update requires --name and at least one of --new-name or --new-age")
 
     else:
         parser.print_help()
@@ -68,6 +79,11 @@ def menu_mode():
                 name = input("Enter name to delete: ")
                 delete_student(name)
             elif choice == '5':
+                old_name = input("Enter the current name: ")
+                new_name = input("Enter the new name (or press Enter to skip): ")
+                new_age = input("Enter the new age (or press Enter to skip): ")
+                update_student(old_name, new_name, new_age)
+            elif choice == '6':
                 print("Goodbye!")
                 break
 
